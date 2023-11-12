@@ -5,16 +5,16 @@
       <router-link to="/" class="back-link">Retour à la liste</router-link>
     </div>
 
-    <div v-if="selectedBook">
-      <div class="book-info" v-if="selectedBook.title">
-        <img :src="selectedBook.image" alt="" />
+    <div v-if="book">
+      <div class="book-info" v-if="book.title">
+        <img :src="book.image" alt="" />
         <div class="details">
-          <h2>{{ selectedBook.title }}</h2>
-          <p>Auteur: {{ selectedBook.author }}</p>
-          <p>Note: {{ selectedBook.rating }}/5</p>
-          <p>Résumé: {{ selectedBook.summary }}</p>
-          <p>Avis: {{ selectedBook.review }}</p>
-          <p>Catégorie: {{ selectedBook.category }}</p>
+          <h2>{{ book.title }}</h2>
+          <p>Auteur: {{ book.author }}</p>
+          <p>Note: {{ book.rating }}/5</p>
+          <p>Résumé: {{ book.summary }}</p>
+          <p>Avis: {{ book.review }}</p>
+          <p>Catégorie: {{ book.category }}</p>
         </div>
       </div>
     </div>
@@ -23,25 +23,18 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter,useRoute } from 'vue-router';
-import axios from 'axios';
-const router = useRouter();
+import { useRoute } from 'vue-router';
+import api from '../helpers/Api';
 const route = useRoute();
-const selectedBook = ref(null);
+const book = ref(null);
 
 onMounted(async () => {
-  console.log('selectedBook:', selectedBook.value);
+  console.log('book:', book.value);
 
   try {
     const bookId = route.params.id;
-    console.log('ID du livre:', bookId);
-
-    const response = await axios.get(`/api/books/${bookId}`);
-    console.log('Réponse de l\'API:', response.data);
-    
-    selectedBook.value = response.data;
-    console.log('selectedBook:', selectedBook.value);
-
+    const {data: _book} = await api.get(`/v1/books/${bookId}`);
+    book.value = _book;
   } catch (error) {
     console.error('Erreur lors de la récupération des détails du livre', error);
   }
