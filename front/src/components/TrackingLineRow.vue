@@ -29,7 +29,7 @@ import {date, getTranslation} from '../helpers/helper'
 
 defineProps({
   trackingLine: {
-    /** @type {import ('../models/TrackingLine').default | null | undefined} */
+    /** @type {import ('../models/BookLine').default | null | undefined} */
     default: null
   }
 })
@@ -39,4 +39,4 @@ defineEmits(['deleteTrackingLine'])
 
 <style lang="scss" scoped>
 
-</style>
+</style>../models/BookLine../models/TrackingLine

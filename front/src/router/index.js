@@ -9,11 +9,6 @@ const router = createRouter({
       component: () => import('../views/HomeView.vue')
     },
     {
-      path: '/tracking-line/:trackingLineId',
-      name: 'tracking-line',
-      component: () => import('../views/TrackingLine.vue')
-    },
-    {
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue'),
@@ -29,6 +24,11 @@ const router = createRouter({
         isLogin: false
       }
     },
+    {
+      path: '/books/:id',
+      name: 'book-details',
+      component: () => import('../views/BookPage.vue')
+    }
   ]
 })
 
